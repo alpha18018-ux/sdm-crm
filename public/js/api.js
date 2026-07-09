@@ -160,8 +160,22 @@ function renderSidebar(role, active) {
 function mobileMenuInit() {
   const btn = document.querySelector(".menu-btn");
   const sidebar = document.querySelector(".sidebar");
-  if (btn && sidebar) {
-    btn.addEventListener("click", () => sidebar.classList.toggle("open"));
+  if (!btn || !sidebar) return;
+  let backdrop = document.querySelector(".sidebar-backdrop");
+  if (!backdrop) {
+    backdrop = document.createElement("div");
+    backdrop.className = "sidebar-backdrop";
+    document.body.appendChild(backdrop);
   }
+  function openMenu() { sidebar.classList.add("open"); backdrop.classList.add("open"); }
+  function closeMenu() { sidebar.classList.remove("open"); backdrop.classList.remove("open"); }
+  btn.addEventListener("click", () => {
+    sidebar.classList.contains("open") ? closeMenu() : openMenu();
+  });
+  backdrop.addEventListener("click", closeMenu);
+  sidebar.querySelectorAll(".nav-link, .logout-btn").forEach((el) => {
+    el.addEventListener("click", closeMenu);
+  });
 }
 document.addEventListener("DOMContentLoaded", mobileMenuInit);
+setTimeout(mobileMenuInit, 300);
