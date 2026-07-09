@@ -65,8 +65,11 @@
       <div class="field full">
         <label>Delivery location / address</label>
         <input id="address" placeholder="House #, street, area, city" required>
-        <div class="hint" id="locHint">No coordinates captured yet.</div>
-        <button type="button" class="btn btn-outline btn-sm" style="margin-top:6px;width:fit-content;" onclick="captureLocation()">&#128205; Use my current location</button>
+      </div>
+      <div class="field full">
+        <label>Customer's Google Maps link (recommended)</label>
+        <input id="customerMapsLink" placeholder="Paste the location link the customer shared (from Google Maps 'Share')">
+        <div class="hint">Ask the customer to open Google Maps, tap Share on their location, and send you the link. Paste it here so the rider can tap it and go straight there.</div>
       </div>
       <div class="field full"><label>Notes (optional)</label><textarea id="notes"></textarea></div>
       <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
