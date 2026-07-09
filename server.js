@@ -17,7 +17,14 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public"), {
+  etag: true,
+  lastModified: true,
+  setHeaders: (res) => {
+    // always revalidate so phones/browsers don't keep showing stale JS/CSS after updates
+    res.setHeader("Cache-Control", "no-cache");
+  }
+}));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
