@@ -4,7 +4,6 @@ document.getElementById("sidebarHolder").outerHTML = renderSidebar("admin", "das
 let PRODUCTS = [];
 let RIDERS = [];
 let SALES = [];
-let capturedLat = null, capturedLng = null;
 
 // ---------- section routing (hash based) ----------
 function showSection() {
@@ -150,8 +149,7 @@ async function editOrder(id) {
   document.getElementById("assignRiderId").value = o.assignedRiderId || "";
   document.getElementById("address").value = o.address;
   document.getElementById("notes").value = o.notes || "";
-  capturedLat = o.lat; capturedLng = o.lng;
-  document.getElementById("locHint").textContent = o.lat ? `Coordinates saved: ${o.lat}, ${o.lng}` : "No coordinates captured yet.";
+  document.getElementById("customerMapsLink").value = o.customerMapsLink || "";
   document.getElementById("orderOverlay").classList.add("open");
 }
 
@@ -159,24 +157,9 @@ function openOrderModal() {
   document.getElementById("orderForm").reset();
   document.getElementById("orderId").value = "";
   document.getElementById("orderModalTitle").textContent = "New Order";
-  capturedLat = null; capturedLng = null;
-  document.getElementById("locHint").textContent = "No coordinates captured yet.";
   document.getElementById("orderOverlay").classList.add("open");
 }
 function closeOrderModal() { document.getElementById("orderOverlay").classList.remove("open"); }
-
-function captureLocation() {
-  if (!navigator.geolocation) { toast("Geolocation not supported on this device/browser.", "error"); return; }
-  document.getElementById("locHint").textContent = "Getting location...";
-  navigator.geolocation.getCurrentPosition((pos) => {
-    capturedLat = pos.coords.latitude;
-    capturedLng = pos.coords.longitude;
-    document.getElementById("locHint").textContent = `Coordinates captured: ${capturedLat.toFixed(5)}, ${capturedLng.toFixed(5)}`;
-    toast("Location captured.");
-  }, () => {
-    document.getElementById("locHint").textContent = "Could not get location. You can still type the address manually.";
-  });
-}
 
 document.getElementById("orderForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -188,7 +171,7 @@ document.getElementById("orderForm").addEventListener("submit", async (e) => {
     quantity: document.getElementById("quantity").value,
     price: Number(document.getElementById("price").value),
     address: document.getElementById("address").value,
-    lat: capturedLat, lng: capturedLng,
+    customerMapsLink: document.getElementById("customerMapsLink").value,
     notes: document.getElementById("notes").value,
     assignRiderId: document.getElementById("assignRiderId").value || undefined
   };
