@@ -161,6 +161,8 @@ function mobileMenuInit() {
   const btn = document.querySelector(".menu-btn");
   const sidebar = document.querySelector(".sidebar");
   if (!btn || !sidebar) return;
+  if (btn.dataset.menuBound === "1") return; // never attach the click handler twice
+  btn.dataset.menuBound = "1";
 
   let backdrop = document.querySelector(".sidebar-backdrop");
   if (!backdrop) {
@@ -181,5 +183,3 @@ function mobileMenuInit() {
   });
 }
 document.addEventListener("DOMContentLoaded", mobileMenuInit);
-// sidebar is injected dynamically after this script loads, so also re-run shortly after
-setTimeout(mobileMenuInit, 300);
