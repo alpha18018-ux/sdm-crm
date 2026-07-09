@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDM CRM · Rider</title>
+<link rel="stylesheet" href="/css/style.css">
+<style>
+  .delivery-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px;}
+  .delivery-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;}
+  .delivery-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebarHolder"></div>
+  <main class="main">
+    <button class="menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('open')">&#9776; Menu</button>
+
+    <div class="topbar">
+      <div><h1 class="page-title">My Deliveries</h1><div class="page-sub">Orders assigned to you. Update the status as you go.</div></div>
+    </div>
+
+    <div class="stat-grid" id="statGrid"></div>
+
+    <div id="deliveryList"></div>
+  </main>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/rider.js"></script>
+</body>
+</html>

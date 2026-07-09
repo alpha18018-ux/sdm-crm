@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDM CRM · Sales</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebarHolder"></div>
+  <main class="main">
+    <button class="menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('open')">&#9776; Menu</button>
+
+    <section id="sec-dashboard">
+      <div class="topbar">
+        <div><h1 class="page-title">My Dashboard</h1><div class="page-sub">Your order activity at a glance.</div></div>
+        <button class="btn btn-amber" onclick="openOrderModal()">+ New Order</button>
+      </div>
+      <div class="stat-grid" id="statGrid"></div>
+      <div class="card">
+        <div class="card-head"><h3>Recent orders</h3><a class="btn btn-outline btn-sm" href="#orders">View all</a></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Order #</th><th>Customer</th><th>Product</th><th>Status</th><th>Created</th></tr></thead>
+          <tbody id="recentOrdersBody"></tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <section id="sec-orders" style="display:none;">
+      <div class="topbar">
+        <div><h1 class="page-title">My Orders</h1><div class="page-sub">Orders you've created. You can edit or delete only while a rider hasn't been assigned yet.</div></div>
+        <button class="btn btn-amber" onclick="openOrderModal()">+ New Order</button>
+      </div>
+      <div class="filters">
+        <select id="filterStatus" onchange="loadOrders()">
+          <option value="">All statuses</option>
+          <option>Unassigned</option><option>Assigned</option><option>On The Way</option>
+          <option>Delivered</option><option>Cancelled</option><option>Pending</option>
+        </select>
+        <input type="text" id="searchBox" placeholder="Search customer or order #" oninput="loadOrders()">
+      </div>
+      <div class="card">
+        <div class="table-wrap"><table>
+          <thead><tr><th>Order #</th><th>Customer</th><th>Product</th><th>Location</th><th>Status</th><th>Rider</th><th style="min-width:150px;">Actions</th></tr></thead>
+          <tbody id="ordersBody"></tbody>
+        </table></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="overlay" id="orderOverlay">
+  <div class="modal">
+    <div class="modal-head"><h3 id="orderModalTitle">New Order</h3><button class="modal-close" onclick="closeOrderModal()">&times;</button></div>
+    <form id="orderForm">
+      <input type="hidden" id="orderId">
+      <div class="form-grid">
+        <div class="field"><label>Customer name</label><input id="customerName" required></div>
+        <div class="field"><label>Customer phone</label><input id="customerPhone" required></div>
+        <div class="field"><label>Product</label><select id="productId" required></select></div>
+        <div class="field"><label>Quantity</label><input type="number" id="quantity" min="1" value="1" required></div>
+        <div class="field"><label>Price (Rs.)</label><input type="number" id="price" min="0" value="0"></div>
+      </div>
+      <div class="field full">
+        <label>Delivery location / address</label>
+        <input id="address" placeholder="House #, street, area, city" required>
+        <div class="hint" id="locHint">No coordinates captured yet.</div>
+        <button type="button" class="btn btn-outline btn-sm" style="margin-top:6px;width:fit-content;" onclick="captureLocation()">&#128205; Use my current location</button>
+      </div>
+      <div class="field full"><label>Notes (optional)</label><textarea id="notes"></textarea></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px;">
+        <button type="button" class="btn btn-outline" onclick="closeOrderModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Order</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/sales.js"></script>
+</body>
+</html>
