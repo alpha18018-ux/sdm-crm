@@ -52,7 +52,7 @@ async function loadDashboard() {
     <div class="stat-card"><div class="stat-label">On The Way</div><div class="stat-value" style="color:#5b3fc4">${t.onTheWay}</div></div>
     <div class="stat-card"><div class="stat-label">Delivered</div><div class="stat-value" style="color:var(--success)">${t.delivered}</div></div>
     <div class="stat-card"><div class="stat-label">Cancelled</div><div class="stat-value" style="color:var(--danger)">${t.cancelled}</div></div>
-    <div class="stat-card"><div class="stat-label">Revenue (Delivered)</div><div class="stat-value mono">Rs. ${t.revenue.toLocaleString()}</div></div>
+    <div class="stat-card"><div class="stat-label">Revenue (Delivered)</div><div class="stat-value mono">QAR ${t.revenue.toLocaleString()}</div></div>
   `;
 
   document.getElementById("riderStatsBody").innerHTML = d.riderStats.map((r) => `

@@ -33,7 +33,7 @@ async function load() {
         <div>
           <div class="order-no">${o.orderNumber}</div>
           <h3 style="font-size:17px;margin-top:4px;">${o.customerName} &middot; ${o.customerPhone}</h3>
-          <div class="hint" style="margin-top:2px;">${o.productName} &times;${o.quantity}${o.price ? ` &middot; Rs. ${o.price * o.quantity}` : ""}</div>
+          <div class="hint" style="margin-top:2px;">${o.productName} &times;${o.quantity}${o.price ? ` &middot; QAR ${o.price * o.quantity}` : ""}</div>
         </div>
         <span class="badge ${badgeClass(o.status)}">${o.status}</span>
       </div>
